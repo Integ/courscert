@@ -5,3 +5,15 @@
   line-height: 3.5rem;
   margin-bottom: 0;
 }
+.course-desc {
+  position: relative;
+  margin-top: 1em;
+  max-height: 100px;
+  overflow: hidden;
+}
+.course-desc::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background:  */
+}
