@@ -8,12 +8,32 @@
 .course-desc {
   position: relative;
   margin-top: 1em;
-  max-height: 100px;
+  height: 60px;
   overflow: hidden;
+  line-height: 1.2;
 }
-.course-desc::after {
+.course-desc.shadow::after {
+  content: '';
   position: absolute;
   width: 100%;
+  top: 0;
+  left: 0;
   height: 100%;
-  /* background:  */
+  cursor: pointer;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.6));
+}
+div.card-text {
+  line-height: 30px;
+}
+div.card-text img {
+  margin: 0 10px;
+}
+.footer {
+  margin-top: 50px;
+  padding:  20px 100px;
+  background-color: #d1e5eb;
+}
+.AIDesign-desc {
+  font-size: 14px;
+  line-height: 1.4;
 }
