@@ -1,5 +1,8 @@
 .container.index-main {
-  min-height: 100vh;
+  min-height: 80vh;
+  background-image: url('static/bg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .circular {
   border-radius: 50%;
