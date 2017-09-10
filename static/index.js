@@ -9,8 +9,12 @@ $(function() {
   </div>`
   $('#addCert').click(function() {
     let cert_id = $('#cert' + certCount).val()
+    if(cert_id === '') {
+      $('#cert' + certCount).removeClass('is-valid').addClass('is-invalid')
+      return
+    }
     $that = $(this)
-    $('#loading')..modal('show')
+    $('#loading').modal('show')
     $.get('/verify/' + cert_id, function(json) {
       console.log(json)
       $('#loading').modal('hide')
