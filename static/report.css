@@ -32,8 +32,13 @@ div.card-text img {
   margin-top: 50px;
   padding:  20px 100px;
   background-color: #d1e5eb;
+  position: fixed;
+  bottom: 0;
 }
 .AIDesign-desc {
   font-size: 14px;
   line-height: 1.4;
+}
+#loading img {
+  margin: 45vh auto;
 }
