@@ -27,12 +27,10 @@ def connect_db():
 
 
 def get_db():
-    """Opens a new database connection if there is none yet for the
-    current application context.
-    """
-    if not hasattr(g, 'sqlite_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
 
 
 def init_db():
@@ -45,10 +43,17 @@ def init_db():
 
 
 @app.teardown_appcontext
-def close_db(error):
-    """Closes the database again at the end of the request."""
-    if hasattr(g, 'sqlite_db'):
-        g.sqlite_db.close()
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
 
 
 @app.route("/")
@@ -58,14 +63,19 @@ def index():
 
 @app.route('/verify/<cert_id>')
 def verify(cert_id):
-    cur = g.db.execute('select * from certs where cert_id = ?', (cert_id,))
-    certData = cur.fetchAll()
-    print(certData)
-    if len(certData):
-        return jsonify(success=True, data=certData)
+    cert = query_db('select * from certs where cert_id = ?',
+                    [cert_id], one=True)
+    if cert is None:
+        print('crawler working for:' + cert_id)
+        cert = crawler(cert_id)
+        if isinstance(cert, basestring):
+            return jsonify(error=cert)
+        else:
+            certDict = cert2Dict(cert)
+            return jsonify(success=True, data=certDict)
     else:
-        certData = crawler(cert_id)
-        return jsonify(error=certData)
+        print('find in datebase:' + cert_id)
+        return jsonify(success=True, data=cert2Dict(cert))
 
 
 @app.route('/report')
@@ -75,55 +85,58 @@ def report():
     certIDs = request.args.getlist('certs')
     certs = []
     for id in certIDs:
-        cur = g.db.execute('select * from certs where cert_id= ? ', (id,))
-        cert = [dict(id=row[0], cert_id=row[1]) for row in cur.fetchall()]
-        certs.append(cert)
+        cert = query_db('select * from certs where cert_id = ?',
+            [id], one=True)
+        certs.append(cert2Dict(cert))
     return render_template('report.html', name=name, certs=certs)
 
 
 def crawler(cert_id):
-    db = get_db()
-    cur = g.db.execute('select * from certs where cert_id = ?', (cert_id,))
-    certData = cur.fetchAll()
-    print(certData)
-    if len(certData) != 0:
-        return certData
-
     url = 'https://coursera.org/verify/' + cert_id
-    print('PhantomJS: ' + url)
+    print('PhantomJS work on: ' + url)
     driver = webdriver.PhantomJS()
     driver.get(url)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     cert_meta = soup.find('div', {'class': 'bt3-col-sm-7'})
+    if cert_meta is None:
+        return 'can not verify, the certification is not exist or network error.'
+    print(cert_meta.prettify())
     course_name = cert_meta.find('h4').get_text()
     metas = cert_meta.find_all('p')
-
-    matchObj = re.match(r'Completed by (.*) (.*) on (.*)', metas[0].get_text())
-    given_name = matchObj.group(1)
-    surname = matchObj.group(2)
-    complete_date = matchObj.group(3)
-
+    if metas[0].get_text().endswith(u'完成'):
+        name_date = metas[0].get_text().split(u'于')
+        given_name = name_date[0].split()[0]
+        surname = name_date[0].split()[1]
+        complete_date = name_date[1].replace(u'完成', '')
+    else:
+        matchObj = re.match(r'Completed by (.*) (.*) on (.*)', metas[0].get_text())
+        given_name = matchObj.group(1)
+        surname = matchObj.group(2)
+        complete_date = matchObj.group(3)
+    print(metas[1].get_text())
     matchObj1 = re.match(
-        r'(.*) weeks, (.*)-(.*) hours per week', metas[1].get_text())
+        r'(.*) weeks( of study)?, (.*)-(.*) hours.*', metas[1].get_text())
     weeks = matchObj1.group(1)
-    min_hours_a_week = matchObj1.group(2)
-    max_hours_a_week = matchObj1.group(3)
-
+    min_hours_a_week = matchObj1.group(3)
+    max_hours_a_week = matchObj1.group(4)
+    print(metas[2].get_text())
+    print(metas[3].get_text())
     teacher_name = metas[2].get_text()
     school_name = metas[3].get_text()
     certData = [cert_id, course_name, given_name, surname, complete_date,
                 weeks, min_hours_a_week, max_hours_a_week, teacher_name, school_name]
     driver.close()
-
+    print('PhantomJS work DONE.')
     error = None
     cert_pdf = 'https://www.coursera.org/api/certificate.v1/pdf/' + cert_id
-    print('fetch %s.pdf' % cert_id)
+    print('fetching: %s.pdf' % cert_id)
     r = requests.get(cert_pdf)
     if r.status_code == 200:
         with open('./static/certs/' + cert_id + '.pdf', 'wb') as f:
             f.write(r.content)
+        print('fetched: ./static/certs/%s.pdf' % cert_id)
         convert = 'convert -antialias -alpha on -channel rgba -fuzz 5% -density 600 -quality 90 -resize 20%'
-        command = "%s ./static/certs/%s.pdf PNG32:./static/certs/%s.png" % (
+        command = "%s ./static/certs/%s.pdf ./static/certs/%s.png" % (
             convert, cert_id, cert_id)
         result = subprocess.call(command, shell=True)
         if result:
@@ -131,7 +144,8 @@ def crawler(cert_id):
             error = 'conversion failed for %s.pdf' % cert_id
             return error
         else:
-            print('Wrote %s.png' % cert_id)
+            print('Convert %s.png DONE.' % cert_id)
+            db = get_db()
             db.execute('insert into certs (cert_id, course_name, given_name, surname, complete_date, weeks, min_hours_a_week, max_hours_a_week, teacher_name, school_name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                        certData)
             db.commit()
@@ -139,3 +153,19 @@ def crawler(cert_id):
     else:
         error = 'cert not found'
         return error
+
+def cert2Dict(cert):
+    last = len(cert)
+    certDict = {
+        'cert_id': cert[last-10],
+        'course_name': cert[last-9],
+        'given_name': cert[last-8],
+        'surname': cert[last-7],
+        'complete_date': cert[last-6],
+        'weeks': cert[last-5],
+        'min_hours_a_week': cert[last-4],
+        'max_hours_a_week': cert[last-3],
+        'teacher_name': cert[last-2],
+        'school_name': cert[last-1]
+    }
+    return certDict
