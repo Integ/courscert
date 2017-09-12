@@ -37,18 +37,23 @@ $(function() {
       $('input[name=certs]:not(.is-valid)').each(function() {
         var $that = $(this)
         let cert_id = $(this).val()
-        $.get('/verify/' + cert_id, function(json) {
-          console.log(json)
-          $('#loading').modal('hide')
-          if(json.success) {
-            $that.removeClass('is-invalid').addClass('is-valid')
-            $('form').submit()
-          } else {
-            $that.removeClass('is-valid').addClass('is-invalid')
-            alert(json.error)
-            return false
-          }
-        }, 'json')
+        if(cert_id !== '') {
+          $.get('/verify/' + cert_id, function(json) {
+            console.log(json)
+            $('#loading').modal('hide')
+            if(json.success) {
+              $that.removeClass('is-invalid').addClass('is-valid')
+              $('form').submit()
+            } else {
+              $that.removeClass('is-valid').addClass('is-invalid')
+              alert(json.error)
+              return false
+            }
+          }, 'json')
+        } else {
+          $that.parents('.form-group').remove()
+          $('form').submit()
+        }
       })
     }
   })
