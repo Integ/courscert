@@ -67,7 +67,7 @@
         <div class="card-body">
           <h4 class="card-title">{{ cert.course_name }}</h4>
           <div class="card-text mt-3">Teacher: {{ cert.teacher_name }}</div>
-          <div class="card-text">School: <img src="static/DeepLearning.jpg" height="30" class="avatar" /><a href="">deeplearning.ai</a></div>
+          <div class="card-text">School: {{ school_name }}</div>
           <div class="card-text">Weeks: {{ cert.weeks }}</div>
           <div class="card-text">Hours Per Week: {{cert.min_hours_a_week}}-{{cert.max_hours_a_week}}</div>
           <div class="card-text">Complete Date: {{ cert.complete_date }}</div>
