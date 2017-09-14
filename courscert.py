@@ -61,16 +61,18 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/report')
-def report():
-    error = None
+@app.route('/wall')
+def wall():
     certIDs = request.args.getlist('certs')
     certs = []
+    total_weeks = 0
     for id in certIDs:
         cert = query_db('select * from certs where cert_id = ?',
                         [id], one=True)
-        certs.append(cert2Dict(cert))
-    return render_template('report.html', certs=certs)
+        certDict = cert2Dict(cert)
+        certs.append(certDict)
+        total_weeks += certDict['weeks']
+    return render_template('wall.html', certs=certs, total_weeks=total_weeks)
 
 
 @app.route('/<cert_id>/fetch')
@@ -100,14 +102,15 @@ def fetch(cert_id):
                 return jsonify(success=True, data=cert_png)
 
 
-@app.route('/<cert_id>')
+@app.route('/<cert_id>/crawl')
 def getCert(cert_id):
     cert = query_db('select * from certs where cert_id = ?',
                     [cert_id], one=True)
     if cert is None:
         print('Crawling:' + cert_id)
         cert = crawler(cert_id)
-        if isinstance(cert, basestring):
+        # if isinstance(cert, basestring):
+        if isinstance(cert, str):
             return jsonify(success=False, error=cert)
         else:
             certDict = cert2Dict(cert)

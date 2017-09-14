@@ -1,60 +1,65 @@
 $(function() {
   let certCount = 1
-  let html = `<div class="form-group">
-    <label for="vert{ind}">Certification {ind}</label>
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon{ind}">https://coursera.org/verify/</span>
-      <input type="text" name="certs" class="form-control" id="cert{ind}" aria-describedby="basic-addon{ind}">
+  let certs = []
+  let html = `<div class="card mb-5" id="cert_{certID}">
+    <div class="card-header">
+      Certification {ind}
     </div>
+    <img class="card-img-top" id="certImg_{certID}" src="/static/loading.gif" alt="" />
   </div>`
   $('#addCert').click(function() {
-    let cert_id = $('#cert' + certCount).val()
-    if(cert_id === '') {
-      $('#cert' + certCount).removeClass('is-valid').addClass('is-invalid')
-      return
-    }
-    $that = $(this)
-    $('#loading').modal('show')
-    $.get('/verify/' + cert_id, function(json) {
-      console.log(json)
-      $('#loading').modal('hide')
-      if(json.success) {
-        $('#cert' + certCount).removeClass('is-invalid').addClass('is-valid')
-        certCount++
-        $that.parent().before(html.replace(/\{ind\}/g, certCount))
-      } else {
-        $('#cert' + certCount).removeClass('is-valid').addClass('is-invalid')
-        alert(json.error)
-      }
-    }, 'json')
-  })
-  $('form').submit(function(e) {
-    $('#loading').modal('show')
-    if($('input[name=certs]:not(.is-valid)').length === 0) {
-      return true
-    } else {
-      e.preventDefault()
-      $('input[name=certs]:not(.is-valid)').each(function() {
-        var $that = $(this)
-        let cert_id = $(this).val()
-        if(cert_id !== '') {
-          $.get('/verify/' + cert_id, function(json) {
+    if($('#certID').val()) {
+      let cert_id = $('#certID').val()
+      $('#certID').val('')
+      $('#certForm').before(html.replace(/\{ind\}/g, certCount).replace(/\{certID\}/g, cert_id))
+      certCount++
+      $('#curCount').text(certCount)
+      $.get(`/${cert_id}/fetch`, function(json) {
+        console.log(json)
+        if(json.success) {
+          $(`#certImg_${cert_id}`).attr('src', json.data)
+          $.get(`/${cert_id}/crawl`, function(json) {
             console.log(json)
-            $('#loading').modal('hide')
             if(json.success) {
-              $that.removeClass('is-invalid').addClass('is-valid')
-              $('form').submit()
+              $(`#cert_${cert_id}`).append(`<div class="card-body">
+                <h4 class="card-title">${json.data.course_name}</h4>
+                <div class="row">
+                  <div class="col">
+                    <div class="card-text">Teacher: ${json.data.teacher_name}</div>
+                  </div>
+                  <div class="col">
+                    <div class="card-text">School: ${json.data.school_name}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="card-text">Total Weeks: ${json.data.weeks}</div>
+                  </div>
+                  <div class="col">
+                    <div class="card-text">Hours Per Week: ${json.data.min_hours_a_week}-${json.data.max_hours_a_week}</div>
+                  </div>
+                </div>
+                <div class="card-text">Complete Date: ${json.data.complete_date}</div>
+              </div>`)
+              certs.push(cert_id)
+              $('#makeWall').removeClass('d-none')
             } else {
-              $that.removeClass('is-valid').addClass('is-invalid')
               alert(json.error)
-              return false
             }
           }, 'json')
         } else {
-          $that.parents('.form-group').remove()
-          $('form').submit()
+          $('#cert' + certCount).removeClass('is-valid').addClass('is-invalid')
+          alert(json.error)
         }
-      })
+      }, 'json')
+    } else if(cert_id === '') {
+      $('#certID').removeClass('is-valid').addClass('is-invalid')
+      alert('Certification ID can not be empty!')
+      return
     }
+  })
+
+  $('#makeWall').click(function() {
+    location.href = `/wall?certs=${certs.join('&certs=')}`
   })
 })

@@ -1,63 +1,61 @@
-[INFO  - 2017-09-12T15:12:49.162Z] GhostDriver - Main - running on port 61922
-[INFO  - 2017-09-12T15:12:50.073Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2017-09-12T15:12:50.073Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.customHeaders:  - {}
-[INFO  - 2017-09-12T15:12:50.073Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2017-09-12T15:12:50.073Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d7614c50-97cc-11e7-9f8a-c1695e365803
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[INFO  - 2017-09-14T05:26:07.911Z] GhostDriver - Main - running on port 13805
+[INFO  - 2017-09-14T05:26:11.108Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-14T05:26:11.108Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.customHeaders:  - {}
+[INFO  - 2017-09-14T05:26:11.109Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-14T05:26:11.109Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 37fb2540-990d-11e7-ad36-d11c04a5c55c
+[ERROR - 2017-09-14T05:26:21.933Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.934Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[ERROR - 2017-09-14T05:26:21.935Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.935Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[ERROR - 2017-09-14T05:26:21.936Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.936Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.813Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[ERROR - 2017-09-14T05:26:21.936Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.936Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[ERROR - 2017-09-14T05:26:21.936Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.936Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[ERROR - 2017-09-14T05:26:21.937Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.937Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
+[ERROR - 2017-09-14T05:26:21.937Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: callOnLoad must be invoked with a module factory, not a module id. see D25667
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:58.814Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:21.937Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:59.569Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - msg: List((/events(0)/key,List(ValidationError(List(error.path.missing),WrappedArray()))))
+[ERROR - 2017-09-14T05:26:22.642Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - msg: List((/events(0)/key,List(ValidationError(List(error.path.missing),WrappedArray()))))
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2017-09-12T15:12:59.569Z] Session [d7614c50-97cc-11e7-9f8a-c1695e365803] - page.onError - stack:
-  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.817c8afcf4233480c4ab.dll.js:55)
+[ERROR - 2017-09-14T05:26:22.643Z] Session [37fb2540-990d-11e7-ad36-d11c04a5c55c] - page.onError - stack:
+  error (https://d3njjcbhbojbot.cloudfront.net/webapps/builds/dll/loader.9f96e3c1ccc5588b91b0.dll.js:55)
 
   phantomjs://platform/console++.js:263 in error
-[INFO  - 2017-09-12T15:17:49.429Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
-[INFO  - 2017-09-12T15:17:49.442Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session 'd7614c50-97cc-11e7-9f8a-c1695e365803', because windowless
