@@ -3,6 +3,15 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.jumbotron {
+  background-image: url('banner.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-left: 100px;
+}
+.jumbotron .btn:hover {
+  background-color: transparent;
+}
 .container.index-main {
   min-height: 70vh;
 }
@@ -40,14 +49,30 @@ div.card-text img {
   margin-top: 50px;
   padding:  20px 100px;
   background-color: #d1e5eb;
+  background-image: url(wall.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.footer .nav-link {
+  color: black;
 }
 .AIDesign-desc {
   font-size: 14px;
   line-height: 1.4;
 }
-#loading img {
-  width: 150px;
-  position: absolute;
-  left: calc(50% - 75px);
-  top: calc(50% - 75px);
+.help-badge {
+  height: 1.8em;
+  line-height: 130%;
+  margin-left: 10px;
+  margin-top: 7px;
+  cursor: pointer;
+}
+#addCert {
+  margin-right: 31px;
+}
+.bg-gray{
+  background: #afb99f;
+}
+.btn {
+  cursor: pointer;
 }

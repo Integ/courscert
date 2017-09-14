@@ -100,6 +100,8 @@ def fetch(cert_id):
             else:
                 print('Converted: %s.png' % cert_id)
                 return jsonify(success=True, data=cert_png)
+        else:
+            return jsonify(success=False, error='Fetch certification failed.')
 
 
 @app.route('/<cert_id>/crawl')

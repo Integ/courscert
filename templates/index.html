@@ -32,9 +32,9 @@
 <body class="">
   <div class="container index-main">
     <div class="jumbotron mt-3">
-      <h1 class="display-3">CertWall</h1>
-      <p class="lead">Hanging all your MOOC Certifications on the wall</p>
-      <hr class="my-4">
+      <h1 class="display-3 invisible my-5">CertWall</h1>
+      <p class="lead invisible">Hanging all your MOOC Certifications on the wall</p>
+      <hr class="">
       <p>Supportted Certification Authorities:</p>
       <p class="lead">
         <a href="https://coursera.com" class="btn btn-outline-primary btn-lg mr-4" target="_blank">
@@ -64,8 +64,8 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item active" href="#">Coursera</a>
-                    <a class="dropdown-item" disabled href="#">Edx</a>
-                    <a class="dropdown-item" disabled href="#">Udacity</a>
+                    <span class="dropdown-item text-muted disabled" disabled href="#">Edx</span>
+                    <span class="dropdown-item text-muted disabled" disabled href="#">Udacity</span>
                   </div>
                 </div>
               </div>
@@ -75,15 +75,31 @@
               <div class="input-group col-sm-9">
                 <span class="input-group-addon" id="basic-addon1">https://coursera.org/verify/</span>
                 <input type="text" class="form-control" name="certs" id="certID" aria-describedby="basic-addon1">
+                <span class="help-badge badge badge-pill badge-secondary" data-toggle="modal" data-target="#exampleModal">?</span>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Where to find the certification ID?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <img src="static/demo.png" width="100%" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <a href="#" id="addCert" class="btn btn-outline-primary float-right">Add Certification</a>
+            <button type="button" id="addCert" class="btn btn-outline-primary float-right">Add Certification</button>
           </div>
         </div>
       </div>
     </div>
     <div class="mt-5 text-center">
-      <a href="#" id="makeWall" class="btn btn-primary btn-lg d-none">See My CertWall</a>
+      <button type="button" id="makeWall" class="btn btn-primary btn-lg d-none">See My CertWall</button>
     </div>
   </div>
   {% include 'footer.html' %}

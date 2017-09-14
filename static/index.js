@@ -5,11 +5,14 @@ $(function() {
     <div class="card-header">
       Certification {ind}
     </div>
-    <img class="card-img-top" id="certImg_{certID}" src="/static/loading.gif" alt="" />
+    <div class="card-body bg-gray text-center">
+      <img class="my-5 cert-loading" id="certImg_{certID}" src="/static/loading.svg" alt="" />
+      <h3 class="my-5 text-white">Loading...</h3>
+    </div>
   </div>`
   $('#addCert').click(function() {
-    if($('#certID').val()) {
-      let cert_id = $('#certID').val()
+    let cert_id = $('#certID').val()
+    if(cert_id.length === 12) {
       $('#certID').val('')
       $('#certForm').before(html.replace(/\{ind\}/g, certCount).replace(/\{certID\}/g, cert_id))
       certCount++
@@ -17,7 +20,8 @@ $(function() {
       $.get(`/${cert_id}/fetch`, function(json) {
         console.log(json)
         if(json.success) {
-          $(`#certImg_${cert_id}`).attr('src', json.data)
+          $(`#cert_${cert_id} .card-body`).remove()
+            .append(`<img class="card-img-top" src="${json.data}" alt="" />`)
           $.get(`/${cert_id}/crawl`, function(json) {
             console.log(json)
             if(json.success) {
@@ -55,7 +59,9 @@ $(function() {
     } else if(cert_id === '') {
       $('#certID').removeClass('is-valid').addClass('is-invalid')
       alert('Certification ID can not be empty!')
-      return
+    } else {
+      $('#certID').removeClass('is-valid').addClass('is-invalid')
+      alert('Certification ID invalid!')
     }
   })
 
