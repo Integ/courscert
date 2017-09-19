@@ -9,6 +9,9 @@
   background-size: cover;
   padding-left: 100px;
 }
+.jumbotron .btn {
+  margin-bottom: 10px;
+}
 .jumbotron .btn:hover {
   background-color: transparent;
 }
@@ -61,7 +64,8 @@ div.card-text img {
   line-height: 1.4;
 }
 .help-badge {
-  height: 1.8em;
+  width: 22px;
+  height: 22px;
   line-height: 130%;
   margin-left: 10px;
   margin-top: 7px;
@@ -75,4 +79,36 @@ div.card-text img {
 }
 .btn {
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .jumbotron {
+    padding-left: 20px;
+    background-image: url('mobile.png');
+  }
+  #basic-addon1, .d-sm-none, .col-form-label {
+    display: none;
+  }
+  #addCert {
+    margin-right: 0;
+  }
+  .footer {
+    padding: 20px;
+  }
+  .award:first-child {
+    border-top: 1px solid #EFEFEF;
+  }
+  .award {
+    border-bottom: 1px solid #efefef;
+    padding: 10px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  .award .h3 {
+    line-height: 1.1;
+  }
+  h1.display-3.invisible {
+    height: 10px;
+  }
 }

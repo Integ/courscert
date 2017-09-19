@@ -21,25 +21,25 @@ $(function() {
         console.log(json)
         if(json.success) {
           $(`#cert_${cert_id} .card-body`).remove()
-            .append(`<img class="card-img-top" src="${json.data}" alt="" />`)
+          $(`#cert_${cert_id}`).append(`<img class="card-img-top" src="static/certs/${cert_id}.png" alt="" />`)
           $.get(`/${cert_id}/crawl`, function(json) {
             console.log(json)
             if(json.success) {
-              $(`#cert_${cert_id}`).append(`<div class="card-body">
+              $(`#cert_${cert_id}`).append(`<div class="card-body">  
                 <h4 class="card-title">${json.data.course_name}</h4>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md-6">
                     <div class="card-text">Teacher: ${json.data.teacher_name}</div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-6">
                     <div class="card-text">School: ${json.data.school_name}</div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md-6">
                     <div class="card-text">Total Weeks: ${json.data.weeks}</div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-6">
                     <div class="card-text">Hours Per Week: ${json.data.min_hours_a_week}-${json.data.max_hours_a_week}</div>
                   </div>
                 </div>
@@ -54,6 +54,7 @@ $(function() {
         } else {
           $('#cert' + certCount).removeClass('is-valid').addClass('is-invalid')
           alert(json.error)
+          location.reload()
         }
       }, 'json')
     } else if(cert_id === '') {
