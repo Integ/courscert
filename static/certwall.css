@@ -81,6 +81,10 @@ div.card-text img {
   cursor: pointer;
 }
 
+textarea {
+  font-family: monospace;
+}
+
 @media (max-width: 600px) {
   .jumbotron {
     padding-left: 20px;

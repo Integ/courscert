@@ -12,8 +12,7 @@ import subprocess
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from flask import Flask, request, jsonify, session, g, redirect, url_for, abort, \
-    render_template, flash
-
+    render_template, flash, send_file
 app = Flask(__name__)
 
 DATABASE = 'database.db'
@@ -73,6 +72,35 @@ def wall():
         certs.append(certDict)
         total_weeks += certDict['weeks']
     return render_template('wall.html', certs=certs, total_weeks=total_weeks)
+
+
+@app.route('/cert/<cert_id>')
+def certPic(cert_id):
+    cert_png = 'static/certs/%s.png' % cert_id
+    if os.path.isfile(cert_png):
+        return send_file(cert_png, mimetype='image/png')
+    else:
+        cert_pdf = 'https://www.coursera.org/api/certificate.v1/pdf/' + cert_id
+        print('Fetching: %s' % cert_pdf)
+        r = requests.get(cert_pdf)
+        if r.status_code == 200:
+            with open('./static/certs/' + cert_id + '.pdf', 'wb') as f:
+                f.write(r.content)
+            print('Fetched: ./static/certs/%s.pdf' % cert_id)
+            print('Converting: %s.pdf to %s.png' % (cert_id, cert_id))
+            convert = 'convert -antialias -alpha on -channel rgba -fuzz 5% -density 600 -quality 90 -resize 20%'
+            command = "%s ./static/certs/%s.pdf ./static/certs/%s.png" % (
+                convert, cert_id, cert_id)
+            result = subprocess.call(command, shell=True)
+            if result:
+                print('Conversion Failed: %s.pdf' % cert_id)
+                error = 'conversion failed for %s.pdf' % cert_id
+                return jsonify(success=False, error=error)
+            else:
+                print('Converted: %s.png' % cert_id)
+                return send_file(cert_png, mimetype='image/png')
+        else:
+            return jsonify(success=False, error='Fetch certification failed.')
 
 
 @app.route('/<cert_id>/fetch')

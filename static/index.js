@@ -44,6 +44,11 @@ $(function() {
                   </div>
                 </div>
                 <div class="card-text">Complete Date: ${json.data.complete_date}</div>
+                <hr/>
+                <div class="mt-3">
+                  <label for="code-${cert_id}">Add your certification to your webpage with this HTML: </label>
+                  <textarea id="code-${cert_id}" class="form-control"><a href="https://coursera.org/verify/${cert_id}" target="_blank"><img src="https://certwall.ml/cert/${cert_id}" width="250" alt="Course Certification for ${json.data.given_name} ${json.data.surname}" /></a></textarea>
+                </div>
               </div>`)
               certs.push(cert_id)
               $('#makeWall').removeClass('d-none')
