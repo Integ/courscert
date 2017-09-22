@@ -9,6 +9,7 @@ import os.path
 import sqlite3
 import requests
 import subprocess
+from datetime import datetime
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from flask import Flask, request, jsonify, session, g, redirect, url_for, abort, \
@@ -65,13 +66,21 @@ def wall():
     certIDs = request.args.getlist('certs')
     certs = []
     total_weeks = 0
+    first_cert_date = ''
     for id in certIDs:
         cert = query_db('select * from certs where cert_id = ?',
                         [id], one=True)
         certDict = cert2Dict(cert)
         certs.append(certDict)
         total_weeks += certDict['weeks']
-    return render_template('wall.html', certs=certs, total_weeks=total_weeks)
+        dt = datetime.strptime(certDict['complete_date'], "%B %d, %Y")
+        if first_cert_date == '':
+            first_cert_date = dt
+        else:
+            if dt < first_cert_date:
+                first_cert_date = dt
+
+    return render_template('wall.html', certs=certs, total_weeks=total_weeks, first_cert_date=first_cert_date.strftime("%m/%d/%Y"))
 
 
 @app.route('/cert/<cert_id>')

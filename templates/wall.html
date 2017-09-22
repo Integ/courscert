@@ -29,6 +29,19 @@
 </head>
 
 <body>
+  <div id="fb-root"></div>
+  <script>
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v2.10";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <div class="fb-share-button float-right mr-5" data-href="https://certwall.ml{{ request.full_path }}" data-layout="button"
+    data-size="large" data-mobile-iframe="true"></div>
+
   <div class="container">
     <h1 class="text-center mt-3">{{ certs[0].given_name }} {{ certs[0].surname }} 's CertWall</h1>
     <div class="row mt-3 mb-3">
@@ -50,7 +63,7 @@
         <svg height="32" class="octicon octicon-rocket" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
           <path fill-rule="evenodd" d="M12.17 3.83c-.27-.27-.47-.55-.63-.88-.16-.31-.27-.66-.34-1.02-.58.33-1.16.7-1.73 1.13-.58.44-1.14.94-1.69 1.48-.7.7-1.33 1.81-1.78 2.45H3L0 10h3l2-2c-.34.77-1.02 2.98-1 3l1 1c.02.02 2.23-.64 3-1l-2 2v3l3-3v-3c.64-.45 1.75-1.09 2.45-1.78.55-.55 1.05-1.13 1.47-1.7.44-.58.81-1.16 1.14-1.72-.36-.08-.7-.19-1.03-.34a3.39 3.39 0 0 1-.86-.63M16 0s-.09.38-.3 1.06c-.2.7-.55 1.58-1.06 2.66-.7-.08-1.27-.33-1.66-.72-.39-.39-.63-.94-.7-1.64C13.36.84 14.23.48 14.92.28 15.62.08 16 0 16 0"></path>
         </svg>
-        <div class="feature-text h5">August 22, 2017</div>
+        <div class="feature-text h5">{{ first_cert_date }}</div>
         <div><small class="text-muted">First Certification</small></div>
       </div>
       <!-- <div class="col text-center">
@@ -61,6 +74,7 @@
         <div><small class="text-muted">Favorite Category</small></div>
       </div> -->
     </div>
+
     <div class="card-deck">
       {% for cert in certs %}
       <div class="card">
@@ -73,13 +87,9 @@
           <div class="card-text">Hours Per Week: {{cert.min_hours_a_week}}-{{cert.max_hours_a_week}}</div>
           <div class="card-text">Complete Date: {{ cert.complete_date }}</div>
         </div>
-        <!-- <div class="card-footer">
-          <span class="badge badge-pill badge-secondary">Machine Learning</span>
-        </div> -->
       </div>
       {% endfor %}
     </div>
-  </div>
   </div>
   {% include 'footer.html' %}
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

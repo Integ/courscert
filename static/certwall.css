@@ -45,6 +45,9 @@
 div.card-text {
   line-height: 30px;
 }
+h1 {
+  font-family: fantasy;
+}
 div.card-text img {
   margin: 0 10px;
 }
