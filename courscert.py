@@ -112,8 +112,8 @@ def certPic(cert_id):
             return jsonify(success=False, error='Fetch certification failed.')
 
 
-@app.route('/<cert_id>/fetch')
-def fetch(cert_id):
+@app.route('/<cert_type>/<cert_id>/fetch')
+def fetch(cert_type, cert_id):
     cert_png = 'static/certs/%s.png' % cert_id
     if os.path.isfile(cert_png):
         return jsonify(success=True, data=cert_png)

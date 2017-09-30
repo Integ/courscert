@@ -55,7 +55,7 @@
       </div>
       <div class="card-body">
         <div class="row justify-content-center">
-          <div class="col-md-7">
+          <div class="col-md-9">
             <div class="form-group row">
               <label for="" class="col-md-3 col-form-label">Platform</label>
               <div class="col-md-9 text-left">
@@ -64,7 +64,8 @@
                     Coursera
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item active" href="#">Coursera</a>
+                    <a class="dropdown-item active" id="coursera" href="#">Coursera</a>
+                    <a class="dropdown-item" id="courseraSpecialization" href="#">Coursera Specialization</a>
                     <span class="dropdown-item text-muted disabled" disabled href="#">Edx</span>
                     <span class="dropdown-item text-muted disabled" disabled href="#">Udacity</span>
                   </div>
@@ -74,7 +75,8 @@
             <div class="form-group row">
               <label for="" class="col-md-3 col-form-label">Certification ID</label>
               <div class="input-group col-md-9">
-                <span class="input-group-addon" id="basic-addon1">https://coursera.org/verify/</span>
+                <span class="input-group-addon" id="basic-addon">https://coursera.org/verify/</span>
+                <span class="input-group-addon" style="display:none" id="specialization-addon">https://coursera.org/verify/specialization/</span>
                 <input type="text" class="form-control" name="certs" id="certID" placeholder="Certification ID" aria-describedby="basic-addon1">
                 <span class="help-badge badge badge-pill badge-info badge-secondary" data-toggle="modal" data-target="#exampleModal">?</span>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

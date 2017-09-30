@@ -1,6 +1,7 @@
 $(function() {
   let certCount = 1
   let certs = []
+  let type = 'coursera'
   let html = `<div class="card mb-5" id="cert_{certID}">
     <div class="card-header">
       Certification {ind}
@@ -17,11 +18,24 @@ $(function() {
       $('#certForm').before(html.replace(/\{ind\}/g, certCount).replace(/\{certID\}/g, cert_id))
       certCount++
       $('#curCount').text(certCount)
-      $.get(`/${cert_id}/fetch`, function(json) {
+      $.get(`${type}/${cert_id}/fetch`, function(json) {
         console.log(json)
         if(json.success) {
           $(`#cert_${cert_id} .card-body`).remove()
           $(`#cert_${cert_id}`).append(`<img class="card-img-top" src="static/certs/${cert_id}.png" alt="" />`)
+          let pdf_url
+          if(type === 'coursera') {
+            pdf_url = `https://coursera.org/verify/${cert_id}`
+          } else {
+            pdf_url = 'https://coursera.org/verify/specialization/${cert_id}'
+          }
+          $(`#cert_${cert_id}`).append(`<div class="card-body">
+            <div class="">
+              <label for="code-${cert_id}">Add your certification to your webpage with this HTML: </label>
+              <textarea id="code-${cert_id}" class="form-control"><a href="${pdf_url}" target="_blank"><img src="https://certwall.ml/cert/${cert_id}" width="250" alt="Certification ${cert_id}" /></a></textarea>
+            </div>
+          </div>`)
+          /*
           $.get(`/${cert_id}/crawl`, function(json) {
             console.log(json)
             if(json.success) {
@@ -56,6 +70,7 @@ $(function() {
               alert(json.error)
             }
           }, 'json')
+        */
         } else {
           $('#cert' + certCount).removeClass('is-valid').addClass('is-invalid')
           alert(json.error)
@@ -73,5 +88,18 @@ $(function() {
 
   $('#makeWall').click(function() {
     location.href = `/wall?certs=${certs.join('&certs=')}`
+  })
+
+  $('#coursera').click(function() {
+    $('#dropdownMenuButton').text('Coursera')
+    $('#basic-addon').show()
+    $('#specialization-addon').hide()
+    type = 'coursera'
+  })
+  $('#courseraSpecialization').click(function() {
+    $('#dropdownMenuButton').text('Coursera Specialization')
+    $('#basic-addon').hide()
+    $('#specialization-addon').show()
+    type = 'coursera_specialization'
   })
 })
